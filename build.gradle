@@ -3,15 +3,40 @@ plugins {
 }
 
 group = 'org.example'
-version = '1.0-SNAPSHOT'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
 }
 
+ext {
+    jsoupVersion = '1.18.1'
+    junitVersion = '5.7.0'
+    snakeyamlVersion = '2.3'
+}
+
+sourceSets {
+    main {
+        java {}
+    }
+
+    test {
+        java {}
+    }
+}
+
 dependencies {
+    implementation "org.jsoup:jsoup:$jsoupVersion"
+    implementation "org.yaml:snakeyaml:$snakeyamlVersion"
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+tasks.register("run", JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'SimpleWebScrapingApp.Main'
+    standardInput = System.in
 }
 
 test {
