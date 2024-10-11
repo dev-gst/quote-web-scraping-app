@@ -21,8 +21,6 @@ public class Env {
 
         try (InputStream applicationConfigs = yaml.getClass().getClassLoader().getResourceAsStream("application.yaml")) {
             config = yaml.load(applicationConfigs);
-
-            System.out.println(config);
         } catch (Exception ignored) {
             System.exit(1);
         }
@@ -34,7 +32,6 @@ public class Env {
         DB_SCHEMA = config.get("db").get("schema");
 
         SCRAPING_URL = config.get("scraping").get("url");
-
     }
 
     public static String getDbUrl() {
