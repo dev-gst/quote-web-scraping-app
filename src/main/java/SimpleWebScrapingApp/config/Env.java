@@ -20,7 +20,7 @@ public class Env {
 
     static {
         Yaml yaml = new Yaml();
-        Map<String, Map<String, String>> config = null;
+        Map<String, Map<String, String>> config;
 
         String filePath = System.getProperty("useTestConfig") == null ? FILE_PATH : TEST_FILE_PATH;
 

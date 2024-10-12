@@ -17,13 +17,8 @@ ext {
 }
 
 sourceSets {
-    main {
-        java {}
-    }
-
-    test {
-        java {}
-    }
+    main {}
+    test {}
 }
 
 dependencies {
