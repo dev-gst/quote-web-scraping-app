@@ -7,6 +7,9 @@ import java.util.Map;
 
 public class Env {
 
+    private static final String FILE_PATH = "application.yaml";
+    private static final String TEST_FILE_PATH = "applicationTest.yaml";
+
     private static final String DB_URL;
     private static final String DB_USER;
     private static final String DB_PASSWORD;
@@ -19,10 +22,12 @@ public class Env {
         Yaml yaml = new Yaml();
         Map<String, Map<String, String>> config = null;
 
-        try (InputStream applicationConfigs = yaml.getClass().getClassLoader().getResourceAsStream("application.yaml")) {
+        String filePath = System.getProperty("useTestConfig") == null ? FILE_PATH : TEST_FILE_PATH;
+
+        try (InputStream applicationConfigs = yaml.getClass().getClassLoader().getResourceAsStream(filePath)) {
             config = yaml.load(applicationConfigs);
-        } catch (Exception ignored) {
-            System.exit(1);
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading application configs", e);
         }
 
         DB_URL = config.get("db").get("url");
