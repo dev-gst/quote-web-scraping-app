@@ -5,5 +5,5 @@ db:
   driver: "org.postgresql.Driver"
   schema: "public"
 
-scrape:
-  url:
+scraping:
+  url: "example.com"
