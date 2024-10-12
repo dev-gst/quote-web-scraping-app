@@ -1,4 +1,4 @@
-package SimpleWebScrapingApp.model.entities;
+package webscraping.model.entities;
 
 import java.util.HashSet;
 import java.util.Set;

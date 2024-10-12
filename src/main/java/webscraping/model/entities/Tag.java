@@ -1,20 +1,21 @@
-package SimpleWebScrapingApp.model.entities;
+package webscraping.model.entities;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Author {
+public class Tag {
     private int id;
     private String name;
     private String url;
     private Set<Quote> quotes;
 
-    public Author() {}
+    public Tag() {}
 
-    public Author(int id, String name, String url, Set<Quote> quotes) {
+    public Tag(int id, String name, String url, Set<Quote> quotes) {
         this.id = id;
         this.name = name;
         this.url = url;
+
         this.quotes = quotes;
     }
 
@@ -60,11 +61,10 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
-                ", quotes=" + quotes +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package SimpleWebScrapingApp.config;
+package webscraping.config;
 
 import org.yaml.snakeyaml.Yaml;
 
