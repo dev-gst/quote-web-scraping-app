@@ -1,6 +1,6 @@
-package SimpleWebScrapingApp.database;
+package webscraping.database;
 
-import SimpleWebScrapingApp.config.Env;
+import webscraping.config.Env;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,16 +8,10 @@ import java.sql.SQLException;
 
 public class DBConnectionManager {
 
-    private static final DBConnectionManager instance = new DBConnectionManager();
-
     private Connection connection;
 
-    private DBConnectionManager() {
+    public DBConnectionManager() {
         connect();
-    }
-
-    public static DBConnectionManager getInstance() {
-        return instance;
     }
 
     public Connection getConnection() {
