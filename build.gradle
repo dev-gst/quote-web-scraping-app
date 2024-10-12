@@ -11,8 +11,9 @@ repositories {
 
 ext {
     jsoupVersion = '1.18.1'
-    junitVersion = '5.7.0'
+    junitVersion = '5.11.2'
     snakeyamlVersion = '2.3'
+    postgresqlVersion = '42.7.4'
 }
 
 sourceSets {
@@ -27,10 +28,12 @@ sourceSets {
 
 dependencies {
     implementation "org.jsoup:jsoup:$jsoupVersion"
+    implementation "org.postgresql:postgresql:$postgresqlVersion"
     implementation "org.yaml:snakeyaml:$snakeyamlVersion"
 
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 tasks.register("run", JavaExec) {
