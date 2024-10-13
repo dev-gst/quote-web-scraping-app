@@ -4,20 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Tag {
+
     private int id;
     private String name;
     private String url;
     private Set<Quote> quotes;
 
     public Tag() {}
-
-    public Tag(int id, String name, String url, Set<Quote> quotes) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-
-        this.quotes = quotes;
-    }
 
     public int getId() {
         return id;

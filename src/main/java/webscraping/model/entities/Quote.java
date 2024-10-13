@@ -4,19 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Quote {
+
     private int id;
     private String text;
     private Author author;
     private Set<Tag> tags;
 
     public Quote() {}
-
-    public Quote(int id, String text, Author author, Set<Tag> tags) {
-        this.id = id;
-        this.text = text;
-        this.author = author;
-        this.tags = tags;
-    }
 
     public int getId() {
         return id;
