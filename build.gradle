@@ -3,17 +3,55 @@ plugins {
 }
 
 group = 'org.example'
-version = '1.0-SNAPSHOT'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
 }
 
+ext {
+    jsoupVersion = '1.18.1'
+    junitVersion = '5.11.2'
+    mockitoVersion = '5.14.1'
+    postgresqlVersion = '42.7.4'
+    snakeyamlVersion = '2.3'
+}
+
+configurations {
+    mockitoAgent {
+        canBeResolved = true
+        transitive = false
+    }
+}
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation "org.jsoup:jsoup:$jsoupVersion"
+    implementation "org.postgresql:postgresql:$postgresqlVersion"
+    implementation "org.yaml:snakeyaml:$snakeyamlVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+    mockitoAgent "org.mockito:mockito-core:$mockitoVersion"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 test {
     useJUnitPlatform()
+    def mockitoJar = configurations.mockitoAgent.find {
+        return it.name == "mockito-core-${mockitoVersion}.jar" ? it : null
+    }
+
+    if (mockitoJar) {
+        jvmArgs += "-javaagent:${mockitoJar.toString()}"
+    } else {
+        throw new GradleException("Mockito inline JAR not found!")
+    }
+}
+
+tasks.register("run", JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'SimpleWebScrapingApp.Main'
+    standardInput = System.in
 }
