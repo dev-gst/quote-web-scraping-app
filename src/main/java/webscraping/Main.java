@@ -14,7 +14,7 @@ public class Main {
         registerDefaultClasses(injector);
 
         ScraperMainService scraperMainService = injector.getInstanceOf(ScraperMainService.class);
-        scraperMainService.scrape();
+        scraperMainService.start();
     }
 
     private static void registerDefaultClasses(DependencyInjector injector) {
@@ -30,6 +30,13 @@ public class Main {
         TagService tagService = new TagService(tagDAO);
         TagQuoteService tagQuoteService = new TagQuoteService(tagQuoteDAO);
 
+        ScraperMainService scraperMainService = new ScraperMainService(
+                authorService,
+                quoteService,
+                tagService,
+                tagQuoteService
+        );
+
         injector.register(DBConnectionManager.class, dbConnectionManager);
 
         injector.register(AuthorDAO.class, authorDAO);
@@ -42,6 +49,6 @@ public class Main {
         injector.register(TagService.class, tagService);
         injector.register(TagQuoteService.class, tagQuoteService);
 
-        injector.register(ScraperMainService.class, new ScraperMainService());
+        injector.register(ScraperMainService.class, scraperMainService);
     }
 }
