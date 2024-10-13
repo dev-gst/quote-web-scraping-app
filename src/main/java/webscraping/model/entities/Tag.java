@@ -1,14 +1,10 @@
 package webscraping.model.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Tag {
 
     private int id;
     private String name;
     private String url;
-    private Set<Quote> quotes;
 
     public Tag() {}
 
@@ -34,22 +30,6 @@ public class Tag {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Set<Quote> getQuotes() {
-        return quotes;
-    }
-
-    public void setQuotes(Set<Quote> quotes) {
-        this.quotes = quotes;
-    }
-
-    public void addQuote(Quote quote) {
-        if (this.quotes == null) {
-            this.quotes = new HashSet<>();
-        }
-
-        this.quotes.add(quote);
     }
 
     @Override
