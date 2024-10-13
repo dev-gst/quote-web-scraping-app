@@ -1,14 +1,5 @@
 package webscraping.config;
 
-import webscraping.database.DBConnectionManager;
-import webscraping.repositories.AuthorDAO;
-import webscraping.repositories.QuoteDAO;
-import webscraping.repositories.TagDAO;
-import webscraping.services.AuthorService;
-import webscraping.services.QuoteService;
-import webscraping.services.ScraperMainService;
-import webscraping.services.TagService;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,18 +27,5 @@ public class DependencyInjector {
 
     public <T> void register (Class<T> clazz, T dependency) {
         dependencies.put(clazz, dependency);
-    }
-
-    public void registerDefaultClasses() {
-        register(DBConnectionManager.class, new DBConnectionManager());
-        register(AuthorDAO.class, new AuthorDAO());
-        register(QuoteDAO.class, new QuoteDAO());
-        register(TagDAO.class, new TagDAO());
-
-        register(AuthorService.class, new AuthorService());
-        register(QuoteService.class, new QuoteService());
-        register(TagService.class, new TagService());
-
-        register(ScraperMainService.class, new ScraperMainService());
     }
 }
