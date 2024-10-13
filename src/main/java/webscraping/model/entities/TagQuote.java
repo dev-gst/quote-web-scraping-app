@@ -2,9 +2,9 @@ package webscraping.model.entities;
 
 public class TagQuote {
 
-    int id;
-    Quote quote;
-    Tag tag;
+    private int id;
+    private Quote quote;
+    private Tag tag;
 
     public TagQuote() {}
 
