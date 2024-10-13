@@ -19,8 +19,6 @@ public class DependencyInjector {
 
     private DependencyInjector() {
         dependencies = new HashMap<>();
-
-        registerDefaultClasses();
     }
 
     public static DependencyInjector getInstance() {
@@ -40,7 +38,7 @@ public class DependencyInjector {
         dependencies.put(clazz, dependency);
     }
 
-    private void registerDefaultClasses() {
+    public void registerDefaultClasses() {
         register(DBConnectionManager.class, new DBConnectionManager());
         register(AuthorDAO.class, new AuthorDAO());
         register(QuoteDAO.class, new QuoteDAO());
