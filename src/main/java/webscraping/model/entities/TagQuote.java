@@ -6,6 +6,14 @@ public class TagQuote {
     Quote quote;
     Tag tag;
 
+    public TagQuote() {}
+
+    public TagQuote(int id, Quote quote, Tag tag) {
+        this.id = id;
+        this.quote = quote;
+        this.tag = tag;
+    }
+
     public int getId() {
         return id;
     }
