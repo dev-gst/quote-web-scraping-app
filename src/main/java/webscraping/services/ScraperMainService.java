@@ -21,6 +21,10 @@ import java.io.IOException;
 public class ScraperMainService {
 
     private static final int WAITING_TIME = 2;
+    private static final int TIMEOUT = 60;
+
+    private static boolean startScraping = true;
+    private static int counter = 1;
 
     private final AuthorService authorService;
     private final QuoteService quoteService;
@@ -40,10 +44,21 @@ public class ScraperMainService {
     }
 
     public void start() {
-        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        try {
+            System.out.println("Starting task...");
+            scheduler.scheduleAtFixedRate(() -> {
+                if (startScraping) {
+                    System.out.println("Scraping page " + counter);
+                    scrape();
+                } else {
+                    scheduler.shutdown();
+                }
+            }, 0, WAITING_TIME, TimeUnit.SECONDS);
 
-            scheduler.schedule(this::scrape, WAITING_TIME, TimeUnit.SECONDS);
-            scheduler.shutdown();
+            boolean ignored = scheduler.awaitTermination(TIMEOUT, TimeUnit.SECONDS);
+
+            System.out.println("task completed");
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -52,20 +67,18 @@ public class ScraperMainService {
 
     private void scrape() {
         try {
-            int i = 1;
-            while(true) {
-                Document doc = Jsoup.connect(Env.getScrapingUrl() + "/page/" + i).get();
+            Document doc = Jsoup.connect(Env.getScrapingUrl() + "/page/" + counter).get();
 
-                Elements allElements = doc.getElementsByClass("quote");
-                Elements nextButton = doc.getElementsByClass("next");
-                processElements(allElements);
+            Elements allElements = doc.getElementsByClass("quote");
+            Elements nextButton = doc.getElementsByClass("next");
+            processElements(allElements);
 
-                if (nextButton.isEmpty()) {
-                    break;
-                }
-
-                i++;
+            if (nextButton.isEmpty()) {
+                counter = 1;
+                startScraping = false;
             }
+
+            counter++;
 
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
